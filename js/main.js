@@ -1,16 +1,13 @@
-"use strict"
+"use strict";
 var canvas;
 var engine;
 var scene;
 var camera;
-var person = {height: 1.8};
+var person = { height: 1.8 };
 var light;
 var cube, sphere, cone, circle, cylinder;
 var guiControls;
 var currentMesh = undefined;
-var currentMesh1 = undefined;
-var currentMesh2 = undefined;
-var currentMesh3 = undefined;
 var res;
 var vol;
 var corr;
@@ -19,48 +16,54 @@ var textMesh;
 var textMat;
 var loader;
 
-function update()
-{
-    
+function update() {}
+
+function renderLoop() {
+  engine.render(scene, camera);
+  update();
+  requestAnimationFrame(renderLoop);
 }
 
-function renderLoop() 
-{
-    engine.render(scene, camera);
-    update();
-    requestAnimationFrame(renderLoop);
-}
+function main() {
+  // CANVAS
+  canvas = document.getElementById("canvas");
 
-function main()
-{ 
-    // CANVAS
-    canvas = document.getElementById("canvas");
+  // RENDERER ENGINE
+  engine = new THREE.WebGLRenderer({ canvas: canvas });
+  engine.setSize(window.innerWidth, window.innerHeight);
+  engine.setClearColor(new THREE.Color(0.2, 0.2, 0.35), 1);
 
-    // RENDERER ENGINE
-    engine = new THREE.WebGLRenderer({canvas: canvas});
-    engine.setSize(window.innerWidth, window.innerHeight);
-    engine.setClearColor(new THREE.Color(0.2, 0.2, 0.35), 1.);   
+  // MODELS
+  // CUBE
 
-    // MODELS
-    // CUBE
+  cube = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(),
+    new THREE.MeshBasicMaterial()
+  );
+  cube.name = "Corriente";
+  cube.visible = false;
 
-    cube = new THREE.Mesh(new THREE.BoxBufferGeometry(), new THREE.MeshBasicMaterial());
-    cube.name = "Corriente";
-    cube.visible = false;
-    // SPHERE
-    sphere = new THREE.Mesh(new THREE.SphereGeometry(), new THREE.MeshBasicMaterial());
-    sphere.name = "Resistencia";
-    sphere.visible = false;
-     // CONE
-    cone = new THREE.Mesh(new THREE.ConeGeometry(), new THREE.MeshBasicMaterial());
-    cone.name = "Voltaje";
-    cone.visible = false;
+  // SPHERE
+  sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(),
+    new THREE.MeshBasicMaterial()
+  );
+  sphere.name = "Resistencia";
+  sphere.visible = false;
 
-    loader = new THREE.FontLoader();
+  // CONE
+  cone = new THREE.Mesh(
+    new THREE.ConeGeometry(),
+    new THREE.MeshBasicMaterial()
+  );
+  cone.name = "Voltaje";
+  cone.visible = false;
 
-    loader.load( 'fonts/font.json', function ( font ) {
-
-    geometry = new THREE.TextGeometry( 'Hello three.js!', {
+  loader = new THREE.FontLoader();
+  loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
+    geometry = new THREE.TextGeometry(
+      "Hello three.js!",
+      {
         font: font,
         size: 80,
         height: 5,
@@ -69,51 +72,57 @@ function main()
         bevelThickness: 10,
         bevelSize: 8,
         bevelOffset: 0,
-        bevelSegments: 5
-    } );
-
-    textMat = new THREE.MeshLambertMaterial({color: 0xFF00FF});
-
-    textMesh = new THREE.Mesh(geometry, textMat);
-} );
-
-    // SCENEGRAPH
-    scene = new THREE.Scene();  
-    scene.add(cube);    // CUBO   
-    scene.add(sphere);  // SPHERE
-    scene.add(cone);    // CONE
+        bevelSegments: 5,
+      }
+    );
+    textMesh = new THREE.Mesh(
+        geometry,
+        new THREE.MeshLambertMaterial({ color: 0xffffff })
+      );
+    
     scene.add(textMesh);
+  },
+  () => {}, // On progress callback
+  (e) => { // On error callback
+    console.log(e);
+  });
 
-    // CAMERA
-    camera = new THREE.PerspectiveCamera(60., canvas.width / canvas.height, 0.01, 10000.);  // CAMERA
-    camera.position.set(0., person.height, 3.);           
-    var controls = new THREE.OrbitControls(camera, canvas);   
-    scene.add(camera);  
+  // SCENEGRAPH
+  scene = new THREE.Scene();
+  scene.add(cube); // CUBO
+  scene.add(sphere); // SPHERE
+  scene.add(cone); // CONE
 
-    // LIGHTS
-    light = new THREE.AmbientLight();  
-    scene.add(light); 
+  // CAMERA
+  camera = new THREE.PerspectiveCamera(
+    60,
+    canvas.width / canvas.height,
+    0.01,
+    10000
+  ); // CAMERA
+  camera.position.set(0, person.height, 3);
+  var controls = new THREE.OrbitControls(camera, canvas);
+  scene.add(camera);
 
-    // GUI
-    var nameList = ["Select"];
-    for(var i = 0; i < scene.children.length; i++)
-    {
-        nameList.push(scene.children[i].name);
-    }
+  // LIGHTS
+  light = new THREE.AmbientLight();
+  scene.add(light);
 
-    guiControls = { valList: "Select" };
-    var datGui = new dat.GUI();
-    var list = datGui.add(guiControls, 'valList', nameList).name('Valores');
-    datGui.close();
-                               
-    // EVENT-HANDLERS
-    window.addEventListener('resize', resizeWindow, false);
-    list.onChange(listOnChange);
+  // GUI
+  var nameList = ["Select"];
+  for (var i = 0; i < scene.children.length; i++) {
+    nameList.push(scene.children[i].name);
+  }
 
-    // ACTION
-    requestAnimationFrame(renderLoop);           
+  guiControls = { valList: "Select" };
+  var datGui = new dat.GUI();
+  var list = datGui.add(guiControls, "valList", nameList).name("Valores");
+  datGui.close();
+
+  // EVENT-HANDLERS
+  window.addEventListener("resize", resizeWindow, false);
+  list.onChange(listOnChange);
+
+  // ACTION
+  requestAnimationFrame(renderLoop);
 }
-
-
-
-
