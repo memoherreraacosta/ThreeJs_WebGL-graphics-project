@@ -75,13 +75,6 @@ function main() {
         bevelSegments: 5,
       }
     );
-    
-    textMesh = new THREE.Mesh(
-      geometry,
-      new THREE.MeshLambertMaterial({ color: 0xff00ff })
-    );
-    console.log("HOLA");
-    console.log("YEEAH" + textMesh);
   });
 
   // SCENEGRAPH
@@ -89,6 +82,11 @@ function main() {
   scene.add(cube); // CUBO
   scene.add(sphere); // SPHERE
   scene.add(cone); // CONE
+
+  textMesh = new THREE.Mesh(
+    geometry,
+    new THREE.MeshLambertMaterial({ color: 0xff00ff })
+  );
   scene.add(textMesh);
 
   // CAMERA
