@@ -11,8 +11,8 @@ var currentMesh = undefined;
 var res;
 var vol;
 var corr;
-var geometry;
-var textMesh;
+var geometryV, geometryI, geometryR;
+var textMeshV, textMeshI, textMeshR;
 var textMat;
 var loader;
 
@@ -23,6 +23,72 @@ function renderLoop() {
   update();
   requestAnimationFrame(renderLoop);
 }
+
+loader = new THREE.FontLoader();
+loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
+  geometryV = new THREE.TextGeometry(
+    "V",
+    {
+      font: font,
+      size: 0.8,
+      height: 0.2,
+      curveSegments: 2,
+      bevelEnabled: false,
+      bevelThickness: 1,
+      bevelSize: 2,
+      bevelOffset: 0,
+      bevelSegments: 2,
+    }
+  );
+},
+() => {}, // On progress callback
+(e) => { // On error callback
+  console.log(e);
+}
+);
+
+loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
+  geometryI = new THREE.TextGeometry(
+    "I",
+    {
+      font: font,
+      size: 0.8,
+      height: 0.2,
+      curveSegments: 2,
+      bevelEnabled: false,
+      bevelThickness: 1,
+      bevelSize: 2,
+      bevelOffset: 0,
+      bevelSegments: 2,
+    }
+  );
+
+},
+() => {}, // On progress callback
+(e) => { // On error callback
+  console.log(e);
+});
+
+loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
+  geometryR = new THREE.TextGeometry(
+    "R",
+    {
+      font: font,
+      size: 0.8,
+      height: 0.2,
+      curveSegments: 2,
+      bevelEnabled: false,
+      bevelThickness: 1,
+      bevelSize: 2,
+      bevelOffset: 0,
+      bevelSegments: 2,
+    }
+  );
+},
+() => {}, // On progress callback
+(e) => { // On error callback
+  console.log(e);
+});
 
 function main() {
   // CANVAS
@@ -40,58 +106,61 @@ function main() {
     new THREE.BoxBufferGeometry(),
     new THREE.MeshBasicMaterial()
   );
-  cube.name = "Corriente";
-  cube.visible = false;
+  //cube.name = "Corriente";
+  //cube.visible = false;
 
   // SPHERE
   sphere = new THREE.Mesh(
     new THREE.SphereGeometry(),
     new THREE.MeshBasicMaterial()
   );
-  sphere.name = "Resistencia";
-  sphere.visible = false;
+  //sphere.name = "Resistencia";
+  //sphere.visible = false;
 
   // CONE
   cone = new THREE.Mesh(
     new THREE.ConeGeometry(),
     new THREE.MeshBasicMaterial()
   );
-  cone.name = "Voltaje";
-  cone.visible = false;
+  //cone.name = "Voltaje";
+  //cone.visible = false;
 
-  loader = new THREE.FontLoader();
-  loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
-    geometry = new THREE.TextGeometry(
-      "Hello three.js!",
-      {
-        font: font,
-        size: 80,
-        height: 5,
-        curveSegments: 12,
-        bevelEnabled: true,
-        bevelThickness: 10,
-        bevelSize: 8,
-        bevelOffset: 0,
-        bevelSegments: 5,
-      }
+  textMeshV = new THREE.Mesh(
+      geometryV,
+      new THREE.MeshLambertMaterial({ color: 0xff0000 })
     );
-    textMesh = new THREE.Mesh(
-        geometry,
-        new THREE.MeshLambertMaterial({ color: 0xffffff })
-      );
-    
-    scene.add(textMesh);
-  },
-  () => {}, // On progress callback
-  (e) => { // On error callback
-    console.log(e);
-  });
+    textMeshV.name = "Voltaje";
+    textMeshV.visible = false;
+    //scene.add(textMeshV);
+
+  textMeshI = new THREE.Mesh(
+      geometryI,
+      new THREE.MeshLambertMaterial({ color: 0x00ff00 })
+    );
+
+    textMeshI.name = "Corriente";
+    textMeshI.visible = false;
+    //scene.add(textMeshI);
+
+  textMeshR = new THREE.Mesh(
+      geometryR,
+      new THREE.MeshLambertMaterial({ color: 0x0000ff })
+    );
+
+    textMeshR.name = "Resistencia";
+    textMeshR.visible = false;
+    //scene.add(textMeshR);
 
   // SCENEGRAPH
+
+  //scene = new THREE.Scene();
   scene = new THREE.Scene();
-  scene.add(cube); // CUBO
-  scene.add(sphere); // SPHERE
-  scene.add(cone); // CONE
+  //scene.add(cube); // CUBO
+  //scene.add(sphere); // SPHERE
+  //scene.add(cone); // CONE
+  scene.add(textMeshV);
+  scene.add(textMeshI);
+  scene.add(textMeshR);
 
   // CAMERA
   camera = new THREE.PerspectiveCamera(
@@ -100,7 +169,7 @@ function main() {
     0.01,
     10000
   ); // CAMERA
-  camera.position.set(0, person.height, 3);
+  camera.position.set(0, 0.5, 3);
   var controls = new THREE.OrbitControls(camera, canvas);
   scene.add(camera);
 
