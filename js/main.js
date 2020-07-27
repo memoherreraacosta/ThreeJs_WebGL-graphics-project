@@ -129,26 +129,27 @@ function main() {
       geometryV,
       new THREE.MeshLambertMaterial({ color: 0xff0000 })
     );
+    textMeshV.position.x = -10;
     textMeshV.name = "Voltaje";
-    textMeshV.visible = false;
+    //textMeshV.visible = false;
     //scene.add(textMeshV);
 
   textMeshI = new THREE.Mesh(
       geometryI,
       new THREE.MeshLambertMaterial({ color: 0x00ff00 })
     );
-
+    textMeshI.position.x = 0;
     textMeshI.name = "Corriente";
-    textMeshI.visible = false;
+    //textMeshI.visible = false;
     //scene.add(textMeshI);
 
   textMeshR = new THREE.Mesh(
       geometryR,
       new THREE.MeshLambertMaterial({ color: 0x0000ff })
     );
-
+    textMeshR.position.x = 10;
     textMeshR.name = "Resistencia";
-    textMeshR.visible = false;
+    //textMeshR.visible = false;
     //scene.add(textMeshR);
 
   // SCENEGRAPH
@@ -162,6 +163,9 @@ function main() {
   scene.add(textMeshI);
   scene.add(textMeshR);
 
+  console.log(res);
+  console.log(vol);
+
   // CAMERA
   camera = new THREE.PerspectiveCamera(
     60,
@@ -169,7 +173,7 @@ function main() {
     0.01,
     10000
   ); // CAMERA
-  camera.position.set(0, 0.5, 10);
+  camera.position.set(0, 0.5, 15);
   var controls = new THREE.OrbitControls(camera, canvas);
   scene.add(camera);
 
