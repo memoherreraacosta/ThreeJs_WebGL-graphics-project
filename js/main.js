@@ -60,7 +60,7 @@ function main() {
   cone.visible = false;
 
   loader = new THREE.FontLoader();
-  loader.load("../fonts/font.json", function (font) {
+  loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
     geometry = new THREE.TextGeometry(
       "Hello three.js!",
       {
@@ -75,6 +75,10 @@ function main() {
         bevelSegments: 5,
       }
     );
+  },
+  () => {}, // On progress callback
+  (e) => { // On error callback
+    console.log(e);
   });
 
   // SCENEGRAPH
