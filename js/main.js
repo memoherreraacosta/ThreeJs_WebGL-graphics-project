@@ -60,24 +60,28 @@ function main() {
   cone.visible = false;
 
   loader = new THREE.FontLoader();
-
-  loader.load("fonts/font.json", function (font) {
-    geometry = new THREE.TextGeometry("Hello three.js!", {
-      font: font,
-      size: 80,
-      height: 5,
-      curveSegments: 12,
-      bevelEnabled: true,
-      bevelThickness: 10,
-      bevelSize: 8,
-      bevelOffset: 0,
-      bevelSegments: 5,
-    });
-
-    textMesh = new THREE.Mesh(
-        geometry,
-        new THREE.MeshLambertMaterial({ color: 0xff00ff })
+  loader.load("../fonts/font.json", function (font) {
+    geometry = new THREE.TextGeometry(
+      "Hello three.js!",
+      {
+        font: font,
+        size: 80,
+        height: 5,
+        curveSegments: 12,
+        bevelEnabled: true,
+        bevelThickness: 10,
+        bevelSize: 8,
+        bevelOffset: 0,
+        bevelSegments: 5,
+      }
     );
+    
+    textMesh = new THREE.Mesh(
+      geometry,
+      new THREE.MeshLambertMaterial({ color: 0xff00ff })
+    );
+    console.log("HOLA");
+    console.log("YEEAH" + textMesh);
   });
 
   // SCENEGRAPH
