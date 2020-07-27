@@ -169,7 +169,7 @@ function main() {
     0.01,
     10000
   ); // CAMERA
-  camera.position.set(0, 0.5, 3);
+  camera.position.set(0, 0.5, 10);
   var controls = new THREE.OrbitControls(camera, canvas);
   scene.add(camera);
 
