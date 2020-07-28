@@ -97,7 +97,7 @@ function main() {
   // RENDERER ENGINE
   engine = new THREE.WebGLRenderer({ canvas: canvas });
   engine.setSize(window.innerWidth, window.innerHeight);
-  engine.setClearColor(new THREE.Color(0.5, 0.5, 0.5), 1);
+  engine.setClearColor(new THREE.Color(0xFBEBE4), 1);
 
   // MODELS
 
