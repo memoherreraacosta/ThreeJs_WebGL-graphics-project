@@ -1,6 +1,8 @@
 ### Hello World Threejs
 Este proyecto es una implementación de la Ley de Ohm en una aplicación web y fue creado utilizando WebGL a través del framework de Three JS
+
 WebGL : https://get.webgl.org
+
 Three Js : https://threejs.org
 
 Ley de Ohm:La corriente que circula por un circuito eléctrico varía de manera directamente proporcional a la diferencia de potencial, e inversamente proporcional con la resistencia del circuito.
