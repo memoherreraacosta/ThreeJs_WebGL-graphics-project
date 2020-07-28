@@ -11,8 +11,8 @@ function listOnChange(event) {
   if (event != "Select") {
     var mesh = scene.getObjectByName(event);
     mesh.visible = true;
-    if (currentMesh) {	
-      currentMesh.visible = false;	
+    if (currentMesh) {
+      currentMesh.visible = true;
     }
     currentMesh = mesh;
     const scaleNum = (function (num) {
@@ -90,9 +90,9 @@ function listOnChange(event) {
       currentMesh.visible = true;
     }
     currentMesh = undefined;
-    scene.getObjectByName("Corriente").scale.set(1, 1, 0);
-    scene.getObjectByName("Voltaje").scale.set(1, 1, 0);
-    scene.getObjectByName("Resistencia").scale.set(1, 1, 0);
+    scene.getObjectByName("Corriente").scale.set(1, 1, 1);
+    scene.getObjectByName("Voltaje").scale.set(1, 1, 1);
+    scene.getObjectByName("Resistencia").scale.set(1, 1, 1);
     camera.position.set(0, 0.5, 10);
   }
 }

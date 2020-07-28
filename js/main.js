@@ -15,6 +15,8 @@ var loader, objLoader;
 var color = 0xFFFFFF;
 var intensity = 10;
 var light;
+var mesh;
+
 
 function update() {}
 
@@ -23,10 +25,9 @@ function renderLoop() {
   update();
   requestAnimationFrame(renderLoop);
 }
-
 loader = new THREE.FontLoader();
 loader.load(
-  "https://threejs.org/examples/fonts/gentilis_regular.typeface.json",
+  "fonts/Roboto_Regular.json",
   function (font) {
     geometryV = new THREE.TextGeometry("V", {
       font: font,
@@ -48,7 +49,7 @@ loader.load(
 );
 
 loader.load(
-  "https://threejs.org/examples/fonts/gentilis_regular.typeface.json",
+  "fonts/Roboto_Regular.json",
   function (font) {
     geometryI = new THREE.TextGeometry("I", {
       font: font,
@@ -70,7 +71,7 @@ loader.load(
 );
 
 loader.load(
-  "https://threejs.org/examples/fonts/gentilis_regular.typeface.json",
+  "fonts/Roboto_Regular.json",
   function (font) {
     geometryR = new THREE.TextGeometry("R", {
       font: font,
@@ -107,6 +108,7 @@ function main() {
     new THREE.MeshLambertMaterial({ color: 0xff0000 })
   );
   textMeshV.position.x = -6;
+  textMeshV.position.y = 2;
   textMeshV.name = "Voltaje";
 
   textMeshI = new THREE.Mesh(
@@ -114,6 +116,7 @@ function main() {
     new THREE.MeshLambertMaterial({ color: 0x00ff00 })
   );
   textMeshI.position.x = 0;
+  textMeshI.position.y = 2;
   textMeshI.name = "Corriente";
 
   textMeshR = new THREE.Mesh(
@@ -121,45 +124,45 @@ function main() {
     new THREE.MeshLambertMaterial({ color: 0x0000ff })
   );
   textMeshR.position.x = 6;
+  textMeshR.position.y = 2;
   textMeshR.name = "Resistencia";
 
-  // 3D Obj
+  // SCENEGRAPH
+  scene = new THREE.Scene();
+  scene.add(textMeshV);
+  scene.add(textMeshI);
+  scene.add(textMeshR);
+  //scene.add(meshAtom);
+
+  //3D Obj
+
   objLoader = new THREE.OBJLoader();
   objLoader.setPath("./models/");
 
   var fileName = "Atom.obj";
   objLoader.load(fileName, function (obj) {
-    mesh = new THREE.Mesh(
-      obj,
-      new THREE.MeshBasicMaterial({ wireframe: true })
-    );
-    scene.add(mesh);
+    obj.scale.set(0.002,0.002,0.002);
+    obj.position.x = -6;
+    obj.position.y = -3;
+    scene.add(obj);
   });
 
   fileName = "Battery.obj";
   objLoader.load(fileName, function (obj) {
-    mesh = new THREE.Mesh(
-      obj,
-      new THREE.MeshBasicMaterial({ wireframe: true })
-    );
-    scene.add(mesh);
+    obj.scale.set(0.07,0.07,0.07);
+    obj.position.x = 0;
+    obj.position.y = -3;
+    scene.add(obj);
   });
 
   fileName = "Lightbulb.obj";
   objLoader.load(fileName, function (obj) {
-    mesh = new THREE.Mesh(
-      obj,
-      new THREE.MeshBasicMaterial({ wireframe: true })
-    );
-    scene.add(mesh);
+    obj.scale.set(0.8,0.8,0.8);
+    obj.position.x = 6;
+    obj.position.y = -1.5;
+    scene.add(obj);
   });
 
-  // SCENEGRAPH
-  //scene = new THREE.Scene();
-  scene = new THREE.Scene();
-  scene.add(textMeshV);
-  scene.add(textMeshI);
-  scene.add(textMeshR);
 
   // CAMERA
   camera = new THREE.PerspectiveCamera(
