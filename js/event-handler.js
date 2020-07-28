@@ -11,97 +11,85 @@ function listOnChange(event) {
   if (event != "Select") {
     var mesh = scene.getObjectByName(event);
     mesh.visible = true;
-    if (currentMesh) {
-      //currentMesh.visible = false;
-    }
     currentMesh = mesh;
+    const scaleNum = (function (num) {
+      return 1 + num * 0.1;
+    });
+
     if (currentMesh == scene.getObjectByName("Corriente")) {
-      //camera.position.set(0, 0.5, 10);
       res = prompt("¿Cuál es la resistencia?");
       vol = prompt("¿Cuál es el voltaje?");
-      corr = vol/res;
+      corr = (vol / res).toFixed(2);
+
       document.getElementById("demo").innerHTML =
         "Valor del Voltaje(V) = " + vol + " volts";
-      document.getElementById("demo1").innerHTML =
-        "Valor de la Corriente(I) = " + vol / res + " amperes";
-      document.getElementById("demo2").innerHTML =
-        "Valor de la Resistencia(R) = " + res + " ohms";
-      currentMesh.scale.x = corr*0.1;
-      currentMesh.scale.y = corr*0.1;
-      currentMesh.scale.z = corr*0.1;
-      scene.getObjectByName("Resistencia").scale.x = res*0.1;
-      scene.getObjectByName("Resistencia").scale.y = res*0.1;
-      scene.getObjectByName("Resistencia").scale.z = res*0.1;
-      scene.getObjectByName("Voltaje").scale.x = vol*0.1;
-      scene.getObjectByName("Voltaje").scale.y = vol*0.1;
-      scene.getObjectByName("Voltaje").scale.z = vol*0.1;
-
-      light.intensity = vol/24;
-      //camera.position.set(0, 0.5, corr*0.3);
-
-    } else if (currentMesh == scene.getObjectByName("Voltaje")) {
-      //camera.position.set(0, 0.5, 10);
-      corr = prompt("¿Cuál es la corriente?");
-      res = prompt("¿Cuál es la resistencia?")
-      vol = corr*res;;
-      document.getElementById("demo").innerHTML =
-        "Valor del Voltaje(V) = " + corr * res + " volts";
       document.getElementById("demo1").innerHTML =
         "Valor de la Corriente(I) = " + corr + " amperes";
       document.getElementById("demo2").innerHTML =
         "Valor de la Resistencia(R) = " + res + " ohms";
-      currentMesh.scale.x = vol*0.1;
-      currentMesh.scale.y = vol*0.1;
-      currentMesh.scale.z = vol*0.1;
-      scene.getObjectByName("Resistencia").scale.x = res*0.1;
-      scene.getObjectByName("Resistencia").scale.y = res*0.1;
-      scene.getObjectByName("Resistencia").scale.z = res*0.1;
-      scene.getObjectByName("Corriente").scale.x = corr*0.1;
-      scene.getObjectByName("Corriente").scale.y = corr*0.1;
-      scene.getObjectByName("Corriente").scale.z = corr*0.1;
 
-      light.intensity = vol/24;
-      //camera.position.set(0, 0.5, vol*0.3);
+      currentMesh.scale.set(scaleNum(corr), scaleNum(corr), 0);
+
+      scene
+        .getObjectByName("Resistencia")
+        .scale.set(scaleNum(res), scaleNum(res), 0);
+      scene
+        .getObjectByName("Voltaje")
+        .scale.set(scaleNum(vol), scaleNum(vol), 0);
+
+      light.intensity = vol / 24;
+    } else if (currentMesh == scene.getObjectByName("Voltaje")) {
+      corr = prompt("¿Cuál es la corriente?");
+      res = prompt("¿Cuál es la resistencia?");
+      vol = (corr * res).toFixed(2);
+      document.getElementById("demo").innerHTML =
+        "Valor del Voltaje(V) = " + vol + " volts";
+      document.getElementById("demo1").innerHTML =
+        "Valor de la Corriente(I) = " + corr + " amperes";
+      document.getElementById("demo2").innerHTML =
+        "Valor de la Resistencia(R) = " + res + " ohms";
+      currentMesh.scale.set(scaleNum(vol), scaleNum(vol), 0);
+
+      scene
+        .getObjectByName("Resistencia")
+        .scale.set(scaleNum(res), scaleNum(res), 0);
+
+      scene
+        .getObjectByName("Corriente")
+        .scale.set(scaleNum(corr), scaleNum(corr), 0);
+
+      light.intensity = vol / 24;
     } else {
-      //scamera.position.set(0, 0.5, 10);
       corr = prompt("¿Cuál es la corriente?");
       vol = prompt("¿Cuál es el voltaje?");
-      res = vol/corr;
+      res = (vol / corr).toFixed(2);
       document.getElementById("demo").innerHTML =
         "Valor del Voltaje(V) = " + vol + " volts";
       document.getElementById("demo1").innerHTML =
         "Valor de la Corriente(I) = " + corr + " amperes";
       document.getElementById("demo2").innerHTML =
-        "Valor de la Resistencia(R) = " + vol-corr + " ohms";
-      currentMesh.scale.x = res*0.1;
-      currentMesh.scale.y = res*0.1;
-      currentMesh.scale.z = res*0.1;
-      scene.getObjectByName("Corriente").scale.x = corr*0.1;
-      scene.getObjectByName("Corriente").scale.y = corr*0.1;
-      scene.getObjectByName("Corriente").scale.z = corr*0.1;
-      scene.getObjectByName("Voltaje").scale.x = vol*0.1;
-      scene.getObjectByName("Voltaje").scale.y = vol*0.1;
-      scene.getObjectByName("Voltaje").scale.z = vol*0.1;
+        "Valor de la Resistencia(R) = " + res + " ohms";
+      currentMesh.scale.set(scaleNum(res), scaleNum(res), 0);
 
-      light.intensity = vol/24;
-      //camera.position.set(0, 0.5, res*0.3);
+      scene
+        .getObjectByName("Corriente")
+        .scale.set(scaleNum(corr), scaleNum(corr), 0);
+
+      scene
+        .getObjectByName("Voltaje")
+        .scale.set(scaleNum(vol), caleNum(vol), 0);
+
+      light.intensity = vol / 24;
     }
     currentMesh = mesh;
   } else {
-    //camera.position.set(0, 0.5, 10);
     if (currentMesh) {
       currentMesh.visible = true;
     }
     currentMesh = undefined;
-    scene.getObjectByName("Corriente").scale.x = 1;
-    scene.getObjectByName("Corriente").scale.y = 1;
-    scene.getObjectByName("Corriente").scale.z = 1;
-    scene.getObjectByName("Voltaje").scale.x = 1;
-    scene.getObjectByName("Voltaje").scale.y = 1;
-    scene.getObjectByName("Voltaje").scale.z = 1;
-    scene.getObjectByName("Resistencia").scale.x = 1;
-    scene.getObjectByName("Resistencia").scale.y = 1;
-    scene.getObjectByName("Resistencia").scale.z = 1;
+    scene.getObjectByName("Corriente").scale.set(1, 1, 0);
+    scene.getObjectByName("Voltaje").scale.set(1, 1, 0);
+    scene.getObjectByName("Resistencia").scale.set(1, 1, 0);
     camera.position.set(0, 0.5, 10);
   }
 }

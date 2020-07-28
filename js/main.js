@@ -5,7 +5,7 @@ var scene;
 var camera;
 var person = { height: 1.8 };
 //var light;
-var cube, sphere, cone, circle, cylinder;
+var circle, cylinder;
 var guiControls;
 var currentMesh = undefined;
 var res;
@@ -103,30 +103,6 @@ function main() {
   engine.setClearColor(new THREE.Color(0.5, 0.5, 0.5), 1);
 
   // MODELS
-  // CUBE
-
-  cube = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(),
-    new THREE.MeshBasicMaterial()
-  );
-  //cube.name = "Corriente";
-  //cube.visible = false;
-
-  // SPHERE
-  sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(),
-    new THREE.MeshBasicMaterial()
-  );
-  //sphere.name = "Resistencia";
-  //sphere.visible = false;
-
-  // CONE
-  cone = new THREE.Mesh(
-    new THREE.ConeGeometry(),
-    new THREE.MeshBasicMaterial()
-  );
-  //cone.name = "Voltaje";
-  //cone.visible = false;
 
   textMeshV = new THREE.Mesh(
       geometryV,
@@ -161,15 +137,9 @@ function main() {
 
   //scene = new THREE.Scene();
   scene = new THREE.Scene();
-  //scene.add(cube); // CUBO
-  //scene.add(sphere); // SPHERE
-  //scene.add(cone); // CONE
   scene.add(textMeshV);
   scene.add(textMeshI);
   scene.add(textMeshR);
-
-  console.log(res);
-  console.log(vol);
 
   // CAMERA
   camera = new THREE.PerspectiveCamera(
@@ -178,6 +148,7 @@ function main() {
     0.01,
     10000
   ); // CAMERA
+
   camera.position.set(0, 0.5, 10);
   var controls = new THREE.OrbitControls(camera, canvas);
   scene.add(camera);
@@ -188,7 +159,7 @@ function main() {
 
   // GUI
   var nameList = ["Select"];
-  for (var i = 0; i < scene.children.length; i++) {
+  for (var i = 0; i < scene.children.length - 2 ; i++) {
     nameList.push(scene.children[i].name);
   }
 
