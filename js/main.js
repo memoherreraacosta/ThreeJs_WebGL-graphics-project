@@ -3,9 +3,6 @@ var canvas;
 var engine;
 var scene;
 var camera;
-var person = { height: 1.8 };
-//var light;
-var cube, sphere, cone, circle, cylinder;
 var guiControls;
 var currentMesh = undefined;
 var res;
@@ -14,10 +11,10 @@ var corr;
 var geometryV, geometryI, geometryR;
 var textMeshV, textMeshI, textMeshR;
 var textMat;
-var loader;
-var color = 0xFFFFFF;
+var loader, objLoader;
 var intensity = 10;
 var light;
+var mesh;
 
 function update() {}
 
@@ -26,12 +23,11 @@ function renderLoop() {
   update();
   requestAnimationFrame(renderLoop);
 }
-
 loader = new THREE.FontLoader();
-loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
-  geometryV = new THREE.TextGeometry(
-    "V",
-    {
+loader.load(
+  "fonts/Roboto_Regular.json",
+  function (font) {
+    geometryV = new THREE.TextGeometry("V", {
       font: font,
       size: 0.8,
       height: 0.2,
@@ -41,19 +37,19 @@ loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json",
       bevelSize: 2,
       bevelOffset: 0,
       bevelSegments: 2,
-    }
-  );
-},
-() => {}, // On progress callback
-(e) => { // On error callback
-  console.log(e);
-}
+    });
+  },
+  () => {}, // On progress callback
+  (e) => {
+    // On error callback
+    console.log(e);
+  }
 );
 
-loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
-  geometryI = new THREE.TextGeometry(
-    "I",
-    {
+loader.load(
+  "fonts/Roboto_Regular.json",
+  function (font) {
+    geometryI = new THREE.TextGeometry("I", {
       font: font,
       size: 0.8,
       height: 0.2,
@@ -63,19 +59,19 @@ loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json",
       bevelSize: 2,
       bevelOffset: 0,
       bevelSegments: 2,
-    }
-  );
+    });
+  },
+  () => {}, // On progress callback
+  (e) => {
+    // On error callback
+    console.log(e);
+  }
+);
 
-},
-() => {}, // On progress callback
-(e) => { // On error callback
-  console.log(e);
-});
-
-loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json", function (font) {
-  geometryR = new THREE.TextGeometry(
-    "R",
-    {
+loader.load(
+  "fonts/Roboto_Regular.json",
+  function (font) {
+    geometryR = new THREE.TextGeometry("R", {
       font: font,
       size: 0.8,
       height: 0.2,
@@ -85,13 +81,14 @@ loader.load("https://threejs.org/examples/fonts/gentilis_regular.typeface.json",
       bevelSize: 2,
       bevelOffset: 0,
       bevelSegments: 2,
-    }
-  );
-},
-() => {}, // On progress callback
-(e) => { // On error callback
-  console.log(e);
-});
+    });
+  },
+  () => {}, // On progress callback
+  (e) => {
+    // On error callback
+    console.log(e);
+  }
+);
 
 function main() {
   // CANVAS
@@ -103,73 +100,92 @@ function main() {
   engine.setClearColor(new THREE.Color(0.5, 0.5, 0.5), 1);
 
   // MODELS
-  // CUBE
-
-  cube = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(),
-    new THREE.MeshBasicMaterial()
-  );
-  //cube.name = "Corriente";
-  //cube.visible = false;
-
-  // SPHERE
-  sphere = new THREE.Mesh(
-    new THREE.SphereGeometry(),
-    new THREE.MeshBasicMaterial()
-  );
-  //sphere.name = "Resistencia";
-  //sphere.visible = false;
-
-  // CONE
-  cone = new THREE.Mesh(
-    new THREE.ConeGeometry(),
-    new THREE.MeshBasicMaterial()
-  );
-  //cone.name = "Voltaje";
-  //cone.visible = false;
 
   textMeshV = new THREE.Mesh(
-      geometryV,
-      new THREE.MeshLambertMaterial({ color: 0xff0000 })
-    );
-    textMeshV.position.x = -6;
-    textMeshV.name = "Voltaje";
-    //textMeshV.visible = false;
-    //scene.add(textMeshV);
+    geometryV,
+    new THREE.MeshLambertMaterial({ color: 0xff0000 }) // Red color
+  );
+  textMeshV.position.x = -6;
+  textMeshV.position.y = 2;
+  textMeshV.name = "Voltaje";
 
   textMeshI = new THREE.Mesh(
-      geometryI,
-      new THREE.MeshLambertMaterial({ color: 0x00ff00 })
-    );
-    textMeshI.position.x = 0;
-    textMeshI.name = "Corriente";
-    //textMeshI.visible = false;
-    //scene.add(textMeshI);
+    geometryI,
+    new THREE.MeshLambertMaterial({ color: 0x00ff00 }) // Lime color
+  );
+  textMeshI.position.x = 0;
+  textMeshI.position.y = 2;
+  textMeshI.name = "Corriente";
 
   textMeshR = new THREE.Mesh(
-      geometryR,
-      new THREE.MeshLambertMaterial({ color: 0x0000ff })
-    );
-    textMeshR.position.x = 6;
-    textMeshR.name = "Resistencia";
-    //textMeshR.visible = false;
-    //scene.add(textMeshR);
-
-    //Light
+    geometryR,
+    new THREE.MeshLambertMaterial({ color: 0x0000ff }) // Blue color
+  );
+  textMeshR.position.x = 6;
+  textMeshR.position.y = 2;
+  textMeshR.name = "Resistencia";
 
   // SCENEGRAPH
-
-  //scene = new THREE.Scene();
   scene = new THREE.Scene();
-  //scene.add(cube); // CUBO
-  //scene.add(sphere); // SPHERE
-  //scene.add(cone); // CONE
   scene.add(textMeshV);
   scene.add(textMeshI);
   scene.add(textMeshR);
+  //scene.add(meshAtom);
 
-  console.log(res);
-  console.log(vol);
+  //3D Obj
+
+  objLoader = new THREE.OBJLoader();
+  objLoader.setPath("./models/");
+
+  var fileName = "Atom.obj";
+  objLoader.load(fileName, function (obj) {
+    var materialObj = new THREE.MeshBasicMaterial({
+      wireframe: true,
+    });
+    obj.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = materialObj;
+        child.material.color.setHex(0xF9DB91);
+      }
+    });
+    obj.scale.set(0.002, 0.002, 0.002);
+    obj.position.x = -6;
+    obj.position.y = -3;
+
+    scene.add(obj);
+  });
+
+  fileName = "Battery.obj";
+  objLoader.load(fileName, function (obj) {
+    var materialObj = new THREE.MeshBasicMaterial({
+    });
+    obj.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = materialObj;
+        child.material.color.setHex(0x90DCF9);
+      }
+    });
+    obj.scale.set(0.07, 0.07, 0.07);
+    obj.position.x = 0;
+    obj.position.y = -3;
+    scene.add(obj);
+  });
+
+  fileName = "Lightbulb.obj";
+  objLoader.load(fileName, function (obj) {
+    var materialObj = new THREE.MeshBasicMaterial({
+    });
+    obj.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = materialObj;
+        child.material.color.setHex(0xF3666D);
+      }
+    });
+    obj.scale.set(0.8, 0.8, 0.8);
+    obj.position.x = 6;
+    obj.position.y = -1.5;
+    scene.add(obj);
+  });
 
   // CAMERA
   camera = new THREE.PerspectiveCamera(
@@ -178,6 +194,7 @@ function main() {
     0.01,
     10000
   ); // CAMERA
+
   camera.position.set(0, 0.5, 10);
   var controls = new THREE.OrbitControls(camera, canvas);
   scene.add(camera);
@@ -188,7 +205,7 @@ function main() {
 
   // GUI
   var nameList = ["Select"];
-  for (var i = 0; i < scene.children.length; i++) {
+  for (var i = 0; i < scene.children.length - 2; i++) {
     nameList.push(scene.children[i].name);
   }
 
