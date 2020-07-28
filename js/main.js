@@ -4,7 +4,7 @@ var engine;
 var scene;
 var camera;
 var person = { height: 1.8 };
-var light;
+//var light;
 var cube, sphere, cone, circle, cylinder;
 var guiControls;
 var currentMesh = undefined;
@@ -15,6 +15,9 @@ var geometryV, geometryI, geometryR;
 var textMeshV, textMeshI, textMeshR;
 var textMat;
 var loader;
+var color = 0xFFFFFF;
+var intensity = 10;
+var light;
 
 function update() {}
 
@@ -97,7 +100,7 @@ function main() {
   // RENDERER ENGINE
   engine = new THREE.WebGLRenderer({ canvas: canvas });
   engine.setSize(window.innerWidth, window.innerHeight);
-  engine.setClearColor(new THREE.Color(0.2, 0.2, 0.35), 1);
+  engine.setClearColor(new THREE.Color(0.5, 0.5, 0.5), 1);
 
   // MODELS
   // CUBE
@@ -129,7 +132,7 @@ function main() {
       geometryV,
       new THREE.MeshLambertMaterial({ color: 0xff0000 })
     );
-    textMeshV.position.x = -10;
+    textMeshV.position.x = -6;
     textMeshV.name = "Voltaje";
     //textMeshV.visible = false;
     //scene.add(textMeshV);
@@ -147,10 +150,12 @@ function main() {
       geometryR,
       new THREE.MeshLambertMaterial({ color: 0x0000ff })
     );
-    textMeshR.position.x = 10;
+    textMeshR.position.x = 6;
     textMeshR.name = "Resistencia";
     //textMeshR.visible = false;
     //scene.add(textMeshR);
+
+    //Light
 
   // SCENEGRAPH
 
@@ -173,12 +178,12 @@ function main() {
     0.01,
     10000
   ); // CAMERA
-  camera.position.set(0, 0.5, 15);
+  camera.position.set(0, 0.5, 10);
   var controls = new THREE.OrbitControls(camera, canvas);
   scene.add(camera);
 
   // LIGHTS
-  light = new THREE.AmbientLight();
+  light = new THREE.AmbientLight(0x404040, 5);
   scene.add(light);
 
   // GUI
