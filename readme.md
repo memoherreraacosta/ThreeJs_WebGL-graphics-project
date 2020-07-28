@@ -1,4 +1,4 @@
-### Hello World Threejs
+### Proyecto Final Gráficas Computacionales
 Este proyecto es una implementación de la Ley de Ohm en una aplicación web y fue creado utilizando WebGL a través del framework de Three JS
 
 WebGL : https://get.webgl.org
