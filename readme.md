@@ -33,7 +33,7 @@ Se accede a la ruta localhost indicada por el server (se recomienda usar FireFox
 ---
 #### Instrucciones en el proyecto
 
-![Proyecto](./imagen.png)
+![Proyecto](./files/imagen.png)
 
 1) Camera control:
 
