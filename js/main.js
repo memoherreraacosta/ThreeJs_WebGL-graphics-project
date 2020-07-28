@@ -3,9 +3,6 @@ var canvas;
 var engine;
 var scene;
 var camera;
-var person = { height: 1.8 };
-//var light;
-var circle, cylinder;
 var guiControls;
 var currentMesh = undefined;
 var res;
@@ -126,7 +123,6 @@ function main() {
   textMeshR.position.x = 6;
   textMeshR.name = "Resistencia";
 
-  /*
   // 3D Obj
   objLoader = new THREE.OBJLoader();
   objLoader.setPath("./models/");
@@ -157,7 +153,6 @@ function main() {
     );
     scene.add(mesh);
   });
-  */
 
   // SCENEGRAPH
   //scene = new THREE.Scene();
