@@ -16,7 +16,7 @@ function listOnChange(event) {
     }
     currentMesh = mesh;
     const scaleNum = (function (num) {
-      return 1 + num * 0.1;
+      return 1 + num * 0.01;
     });
 
     if (currentMesh == scene.getObjectByName("Corriente")) {
@@ -31,14 +31,14 @@ function listOnChange(event) {
       document.getElementById("demo2").innerHTML =
         "Valor de la Resistencia(R) = " + res + " ohms";
 
-      currentMesh.scale.set(scaleNum(corr), scaleNum(corr), 0);
+      currentMesh.scale.set(scaleNum(corr), scaleNum(corr), 1);
 
       scene
         .getObjectByName("Resistencia")
-        .scale.set(scaleNum(res), scaleNum(res), 0);
+        .scale.set(scaleNum(res), scaleNum(res), 1);
       scene
         .getObjectByName("Voltaje")
-        .scale.set(scaleNum(vol), scaleNum(vol), 0);
+        .scale.set(scaleNum(vol), scaleNum(vol), 1);
 
       light.intensity = vol / 24;
     } else if (currentMesh == scene.getObjectByName("Voltaje")) {
@@ -51,15 +51,15 @@ function listOnChange(event) {
         "Valor de la Corriente(I) = " + corr + " amperes";
       document.getElementById("demo2").innerHTML =
         "Valor de la Resistencia(R) = " + res + " ohms";
-      currentMesh.scale.set(scaleNum(vol), scaleNum(vol), 0);
+      currentMesh.scale.set(scaleNum(vol), scaleNum(vol), 1);
 
       scene
         .getObjectByName("Resistencia")
-        .scale.set(scaleNum(res), scaleNum(res), 0);
+        .scale.set(scaleNum(res), scaleNum(res), 1);
 
       scene
         .getObjectByName("Corriente")
-        .scale.set(scaleNum(corr), scaleNum(corr), 0);
+        .scale.set(scaleNum(corr), scaleNum(corr), 1);
 
       light.intensity = vol / 24;
     } else {
@@ -72,15 +72,15 @@ function listOnChange(event) {
         "Valor de la Corriente(I) = " + corr + " amperes";
       document.getElementById("demo2").innerHTML =
         "Valor de la Resistencia(R) = " + res + " ohms";
-      currentMesh.scale.set(scaleNum(res), scaleNum(res), 0);
+      currentMesh.scale.set(scaleNum(res), scaleNum(res), 1);
 
       scene
         .getObjectByName("Corriente")
-        .scale.set(scaleNum(corr), scaleNum(corr), 0);
+        .scale.set(scaleNum(corr), scaleNum(corr), 1);
 
       scene
         .getObjectByName("Voltaje")
-        .scale.set(scaleNum(vol), scaleNum(vol), 0);
+        .scale.set(scaleNum(vol), scaleNum(vol), 1);
 
       light.intensity = vol / 24;
     }
