@@ -21,11 +21,19 @@ function listOnChange(event) {
       vol = prompt("¿Cuál es el voltaje?");
       corr = vol/res;
       document.getElementById("demo").innerHTML =
+<<<<<<< HEAD
         "Valor del Voltaje(V) = " + vol + " volts";
       document.getElementById("demo1").innerHTML =
         "Valor de la Corriente(I) = " + vol / res + " amperes";
       document.getElementById("demo2").innerHTML =
         "Valor de la Resistencia(R) = " + res + " ohms";
+=======
+        "Valor del Voltaje = " + vol;
+      document.getElementById("demo1").innerHTML =
+        "Valor de la Corriente = " + vol / res;
+      document.getElementById("demo2").innerHTML =
+        "Valor de la Resistencia = " + res;
+>>>>>>> d59ef198f01b13b52399faf09b80f898443e9493
       currentMesh.scale.x = corr*0.1;
       currentMesh.scale.y = corr*0.1;
       currentMesh.scale.z = corr*0.1;
@@ -45,11 +53,19 @@ function listOnChange(event) {
       res = prompt("¿Cuál es la resistencia?")
       vol = corr*res;;
       document.getElementById("demo").innerHTML =
+<<<<<<< HEAD
         "Valor del Voltaje(V) = " + corr * res + " volts";
       document.getElementById("demo1").innerHTML =
         "Valor de la Corriente(I) = " + corr + " amperes";
       document.getElementById("demo2").innerHTML =
         "Valor de la Resistencia(R) = " + res + " ohms";
+=======
+        "Valor del Voltaje = " + corr * res;
+      document.getElementById("demo1").innerHTML =
+        "Valor de la Corriente = " + corr;
+      document.getElementById("demo2").innerHTML =
+        "Valor de la Resistencia = " + res;
+>>>>>>> d59ef198f01b13b52399faf09b80f898443e9493
       currentMesh.scale.x = vol*0.1;
       currentMesh.scale.y = vol*0.1;
       currentMesh.scale.z = vol*0.1;
@@ -68,11 +84,19 @@ function listOnChange(event) {
       vol = prompt("¿Cuál es el voltaje?");
       res = vol/corr;
       document.getElementById("demo").innerHTML =
+<<<<<<< HEAD
         "Valor del Voltaje(V) = " + vol + " volts";
       document.getElementById("demo1").innerHTML =
         "Valor de la Corriente(I) = " + corr + " amperes";
       document.getElementById("demo2").innerHTML =
         "Valor de la Resistencia(R) = " + vol-corr + " ohms";
+=======
+        "Valor del Voltaje = " + vol;
+      document.getElementById("demo1").innerHTML =
+        "Valor de la Corriente = " + corr;
+      document.getElementById("demo2").innerHTML =
+        "Valor de la Resistencia = " + vol-corr;
+>>>>>>> d59ef198f01b13b52399faf09b80f898443e9493
       currentMesh.scale.x = res*0.1;
       currentMesh.scale.y = res*0.1;
       currentMesh.scale.z = res*0.1;
