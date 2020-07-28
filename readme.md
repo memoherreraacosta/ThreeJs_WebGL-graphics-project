@@ -12,7 +12,8 @@ Este proyecto es una implementación de la Ley de Ohm en una aplicación web y f
 ---
 #### Ley de Ohm:
 La corriente que circula por un circuito eléctrico varía de manera directamente proporcional a la diferencia de potencial, e inversamente proporcional con la resistencia del circuito.
-   
+ 
+ [Video de aprendizaje](https://www.youtube.com/watch?v=m7HY1Or01S0)
 
 ![OhmLaw](https://cdn.todamateria.com/imagenes/ley-de-ohm1-0-cke-edited-1.jpg)
 
