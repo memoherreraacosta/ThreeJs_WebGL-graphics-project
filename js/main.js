@@ -14,7 +14,7 @@ var corr;
 var geometryV, geometryI, geometryR;
 var textMeshV, textMeshI, textMeshR;
 var textMat;
-var loader;
+var loader, objLoader;
 var color = 0xFFFFFF;
 var intensity = 10;
 var light;
@@ -126,8 +126,9 @@ function main() {
   textMeshR.position.x = 6;
   textMeshR.name = "Resistencia";
 
+  /*
   // 3D Obj
-  var objLoader = new THREE.OBJLoader();
+  objLoader = new THREE.OBJLoader();
   objLoader.setPath("./models/");
 
   var fileName = "Atom.obj";
@@ -156,6 +157,7 @@ function main() {
     );
     scene.add(mesh);
   });
+  */
 
   // SCENEGRAPH
   //scene = new THREE.Scene();

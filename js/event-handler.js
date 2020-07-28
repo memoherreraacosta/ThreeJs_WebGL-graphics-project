@@ -11,6 +11,9 @@ function listOnChange(event) {
   if (event != "Select") {
     var mesh = scene.getObjectByName(event);
     mesh.visible = true;
+    if (currentMesh) {	
+      currentMesh.visible = false;	
+    }
     currentMesh = mesh;
     const scaleNum = (function (num) {
       return 1 + num * 0.1;
@@ -77,7 +80,7 @@ function listOnChange(event) {
 
       scene
         .getObjectByName("Voltaje")
-        .scale.set(scaleNum(vol), caleNum(vol), 0);
+        .scale.set(scaleNum(vol), scaleNum(vol), 0);
 
       light.intensity = vol / 24;
     }
