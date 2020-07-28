@@ -7,6 +7,7 @@ Three Js : https://threejs.org
 
 Ley de Ohm: La corriente que circula por un circuito eléctrico varía de manera directamente proporcional a la diferencia de potencial, e inversamente proporcional con la resistencia del circuito.
 
+Para correr el simulador se debe hacer desde un server local, nosotros utilizamos la extension de chrome 200 OK!
 
 1) Camera control:
 
