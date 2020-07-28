@@ -12,11 +12,9 @@ var geometryV, geometryI, geometryR;
 var textMeshV, textMeshI, textMeshR;
 var textMat;
 var loader, objLoader;
-var color = 0xFFFFFF;
 var intensity = 10;
 var light;
 var mesh;
-
 
 function update() {}
 
@@ -99,13 +97,13 @@ function main() {
   // RENDERER ENGINE
   engine = new THREE.WebGLRenderer({ canvas: canvas });
   engine.setSize(window.innerWidth, window.innerHeight);
-  engine.setClearColor(new THREE.Color(0.5, 0.5, 0.5), 1);
+  engine.setClearColor(new THREE.Color(0xFBEBE4), 1);
 
   // MODELS
 
   textMeshV = new THREE.Mesh(
     geometryV,
-    new THREE.MeshLambertMaterial({ color: 0xff0000 })
+    new THREE.MeshLambertMaterial({ color: 0xff0000 }) // Red color
   );
   textMeshV.position.x = -6;
   textMeshV.position.y = 2;
@@ -113,7 +111,7 @@ function main() {
 
   textMeshI = new THREE.Mesh(
     geometryI,
-    new THREE.MeshLambertMaterial({ color: 0x00ff00 })
+    new THREE.MeshLambertMaterial({ color: 0x00ff00 }) // Lime color
   );
   textMeshI.position.x = 0;
   textMeshI.position.y = 2;
@@ -121,7 +119,7 @@ function main() {
 
   textMeshR = new THREE.Mesh(
     geometryR,
-    new THREE.MeshLambertMaterial({ color: 0x0000ff })
+    new THREE.MeshLambertMaterial({ color: 0x0000ff }) // Blue color
   );
   textMeshR.position.x = 6;
   textMeshR.position.y = 2;
@@ -141,15 +139,33 @@ function main() {
 
   var fileName = "Atom.obj";
   objLoader.load(fileName, function (obj) {
-    obj.scale.set(0.002,0.002,0.002);
+    var materialObj = new THREE.MeshBasicMaterial({
+      wireframe: true,
+    });
+    obj.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = materialObj;
+        child.material.color.setHex(0xF9DB91);
+      }
+    });
+    obj.scale.set(0.002, 0.002, 0.002);
     obj.position.x = -6;
     obj.position.y = -3;
+
     scene.add(obj);
   });
 
   fileName = "Battery.obj";
   objLoader.load(fileName, function (obj) {
-    obj.scale.set(0.07,0.07,0.07);
+    var materialObj = new THREE.MeshBasicMaterial({
+    });
+    obj.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = materialObj;
+        child.material.color.setHex(0x90DCF9);
+      }
+    });
+    obj.scale.set(0.07, 0.07, 0.07);
     obj.position.x = 0;
     obj.position.y = -3;
     scene.add(obj);
@@ -157,12 +173,19 @@ function main() {
 
   fileName = "Lightbulb.obj";
   objLoader.load(fileName, function (obj) {
-    obj.scale.set(0.8,0.8,0.8);
+    var materialObj = new THREE.MeshBasicMaterial({
+    });
+    obj.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = materialObj;
+        child.material.color.setHex(0xF3666D);
+      }
+    });
+    obj.scale.set(0.8, 0.8, 0.8);
     obj.position.x = 6;
     obj.position.y = -1.5;
     scene.add(obj);
   });
-
 
   // CAMERA
   camera = new THREE.PerspectiveCamera(
